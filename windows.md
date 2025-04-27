@@ -2,9 +2,10 @@
 
 [To do list](./to_do_list.pdf) <br>
 [DFIR parancsok](./DFIR.pdf) <br>
-[Összegző powershell script](./incident_report.ps1) <br>
+[Összegző powershell script letöltés](./incident_report.ps1) <br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
 cd $env:USERPROFILE\Desktop <br>
+.\incident_report.ps1 <br>
 
 
 ## Egy Windows Server esetén az alábbi területeket kell figyelni:
