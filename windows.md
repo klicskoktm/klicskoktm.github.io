@@ -33,7 +33,7 @@
 **nslookup** google.com - looks up a host or domain and returns its IP address<br>
 **netstat** - displays current network connections and listening ports. A basic netstat command with no arguments will show you established connections<br>
   -a displays all established connections and listening ports<br>
-  -b shows the program associated with each listening port and established connection<br>
+  -b shows the program associated with each listening port and established connection <br>
   -o reveals the process ID (PID) associated with the connection<br>
   -n uses a numerical form for addresses and port numbers<br>
 **dir** /a - Displays hidden and system files as well.<br>
@@ -82,7 +82,7 @@ Command: sigcheck -u -e C:\Windows\System32 <br>
 Get-Item -Path .\file.txt -stream * <br>
 Get-Content -Path .\file.txt -stream includedfile.txt <br>
 - [TCPView](./tcpview.pdf) <br>
-- Strings .\file.exe | findstr /i zoom*  --- kilistáz minden olvasható karakterláncot (ASCII és opcionálisan Unicode) megkeresi azokat a sorokat, amelyek tartalmazzák a zoom szót, /i → kis- és nagybetű érzéketlen keresés
-findstr /i /c:"zoom meeting"  --- /c:"szöveg"	Pontos szöveg keresése (szóközös keresésnél hasznos)
-strings .\payload.exe | findstr /i "http https ftp" --- Keresni minden gyanús URL-t egy binárisban
-strings .\payload.exe | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" --- Keresni IP-cím mintákat
+- Strings .\file.exe | findstr /i zoom*  --- kilistáz minden olvasható karakterláncot (ASCII és opcionálisan Unicode) megkeresi azokat a sorokat, amelyek tartalmazzák a zoom szót, /i → kis- és nagybetű érzéketlen keresés <br>
+findstr /i /c:"zoom meeting"  --- /c:"szöveg"	Pontos szöveg keresése (szóközös keresésnél hasznos) <br>
+strings .\payload.exe | findstr /i "http https ftp" --- Keresni minden gyanús URL-t egy binárisban <br>
+strings .\payload.exe | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" --- Keresni IP-cím mintákat <br>
