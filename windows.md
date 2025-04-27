@@ -68,8 +68,17 @@
 -- Get-FileHash -Algorithm SHA256 FILE<br>
 **Measure-Object** [-Property] <string> [-Sum] [-Average] [-Minimum] [-Maximum] [-InputObject <PSObject>] <br>
 -- Get-Content C:\path\to\file.txt | Measure-Object -Line  ---  szövegfájl sorainak megszámolása <br>
-**Get-ChildItem** C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
+Get-ChildItem C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
 
 ## Sysinternals
 
 [Letöltés](https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite)
+
+- **Sigcheck** : command-line utility that shows file version number, timestamp information, and digital signature details, including certificate chains. It also includes an option to check a file’s status on VirusTotal<br>
+Use Case: Check for unsigned files in C:\Windows\System32 <br>
+Command: sigcheck -u -e C:\Windows\System32 <br>
+- **Streams** C:\path\to\file.txt or streams -s C:\path\to\folder  : NTFS alternatív adatfolyamok (ADS) kimutatására; :hiddenstream:$DATA 1234 <br>
+:hiddenstream → az alternatív adatfolyam neve; 1234 → az adatfolyam mérete bájtban <br>
+Get-Item -Path .\file.txt -stream * <br>
+Get-Content -Path .\file.txt -stream includedfile.txt <br>
+- [TCPView](./tcpview.html)
