@@ -2,5 +2,5 @@
 
 ## CMD parancsok
 
-hostname - computer name
-whoami - name of the logged-in user
+hostname - computer name<br>
+whoami - name of the logged-in user<br>
