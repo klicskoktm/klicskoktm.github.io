@@ -86,3 +86,6 @@ Get-Content -Path .\file.txt -stream includedfile.txt <br>
 findstr /i /c:"zoom meeting"  --- /c:"szöveg"	Pontos szöveg keresése (szóközös keresésnél hasznos) <br>
 strings .\payload.exe | findstr /i "http https ftp" --- Keresni minden gyanús URL-t egy binárisban <br>
 strings .\payload.exe | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" --- Keresni IP-cím mintákat <br>
+- Process Explorer
+- Process Monitor
+- Process Hacker
