@@ -24,16 +24,16 @@ rmdir directory_name - delete a directory<br>
 type - show the contents of the text file on the screen<br>
 more - show long text<br>
 tasklist - list the running processes<br>
-  tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
+  - tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
 taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567<br>
 net user - list users<br>
-  net user ujfelhasznalo<br>
-  net user ujfelhasznalo jelszo /add<br>
+  - net user ujfelhasznalo<br>
+  - net user ujfelhasznalo jelszo /add<br>
 net localgroup administrators  - list users in admin group<br>
-  net localgroup administrators ujfelhasznalo /add<br>
+  - net localgroup administrators ujfelhasznalo /add<br>
 net group /domain  - list all group in domain<br>
-  net group "CsoportNeve" /domain  - list group members<br>
-  net group "CsoportNeve" felhasznalonev /add /domain  - add user to group<br>
-  net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
-  net group "UjCsoport" /add /domain  - new group<br>
-  net group "CsoportNeve" /delete /domain  - delete group<br>
+  - net group "CsoportNeve" /domain  - list group members<br>
+  - net group "CsoportNeve" felhasznalonev /add /domain  - add user to group<br>
+  - net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
+  - net group "UjCsoport" /add /domain  - new group<br>
+  - net group "CsoportNeve" /delete /domain  - delete group<br>
