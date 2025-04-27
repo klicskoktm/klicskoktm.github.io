@@ -24,7 +24,7 @@ rmdir directory_name - delete a directory<br>
 type - show the contents of the text file on the screen<br>
 more - show long text<br>
 tasklist - list the running processes<br>
-  - tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
+   tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
 taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567<br>
 net user - list users<br>
   - net user ujfelhasznalo<br>
