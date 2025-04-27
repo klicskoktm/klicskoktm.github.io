@@ -119,7 +119,7 @@ Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Format-Table 
 Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName, TaskPath, Actions  --- Scheduled Tasks kilistázása <br>
 Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
-[Összegző powershell script letöltés](./incident_report.ps1) --- a fentebbi dolgokat egyszerre lefuttatja. Használata:<br>
+[Powershell script letöltés](./incident_report.ps1) --- a fentebbi dolgokat egyszerre lefuttatja. Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
 cd $env:USERPROFILE\Desktop <br>
 .\incident_report.ps1 <br>
