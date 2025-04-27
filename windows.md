@@ -3,6 +3,11 @@
 [To do list](./to_do_list.pdf) <br>
 [DFIR parancsok](./DFIR.pdf) <br>
 [PS Script](./incident_report.ps1) <br>
+Az ellenőrző dolgokat egyszerre lefuttatja az alábbi srcipt. <br>
+Használata:<br>
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
+cd $env:USERPROFILE\Desktop <br>
+.\incident_report.ps1 <br>
 
 ## Egy Windows Server esetén az alábbi területeket kell figyelni:
 
@@ -120,11 +125,6 @@ Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Format-Table 
 Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName, TaskPath, Actions  --- Scheduled Tasks kilistázása <br>
 Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
-A fentebbi dolgokat egyszerre lefuttatja az alábbi srcipt. <br>
-Használata:<br>
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
-cd $env:USERPROFILE\Desktop <br>
-.\incident_report.ps1 <br>
 
 
 ## Sysinternals
