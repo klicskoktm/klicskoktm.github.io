@@ -1,6 +1,6 @@
 # Windows admin jegyzet
 
-[To do list](./todo_list.pdf)
+[To do list](./to_do_list.pdf)
 
 ## Egy Windows Server esetén az alábbi nagy területeket kell figyelni:
 
