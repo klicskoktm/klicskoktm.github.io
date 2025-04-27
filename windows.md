@@ -12,7 +12,28 @@ ipconfig /all /renew /release /displaydns /flushdns <br>
 tracert example.com<br>
 nslookup google.com - looks up a host or domain and returns its IP address<br>
 netstat - displays current network connections and listening ports. A basic netstat command with no arguments will show you established connections<br>
-• -a displays all established connections and listening ports<br>
-• -b shows the program associated with each listening port and established connection<br>
-• -o reveals the process ID (PID) associated with the connection<br>
-• -n uses a numerical form for addresses and port numbers<br>
+  -a displays all established connections and listening ports<br>
+  -b shows the program associated with each listening port and established connection<br>
+  -o reveals the process ID (PID) associated with the connection<br>
+  -n uses a numerical form for addresses and port numbers<br>
+dir /a - Displays hidden and system files as well.<br>
+dir /s - Displays files in the current directory and all subdirectories.<br>
+tree - visually represent the child directories and subdirectories.<br>
+mkdir directory_name - create a directory<br>
+rmdir directory_name - delete a directory<br>
+type - show the contents of the text file on the screen
+more - show long text
+tasklist - list the running processes
+  tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe
+taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567
+net user - list users
+  net user ujfelhasznalo
+  net user ujfelhasznalo jelszo /add
+net localgroup administrators  - list users in admin group
+  net localgroup administrators ujfelhasznalo /add
+net group /domain  - list all group in domain
+  net group "CsoportNeve" /domain  - list group members
+  net group "CsoportNeve" felhasznalonev /add /domain  - add user to group
+  net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group
+  net group "UjCsoport" /add /domain  - new group
+  net group "CsoportNeve" /delete /domain  - delete group
