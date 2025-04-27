@@ -69,3 +69,7 @@
 **Measure-Object** [-Property] <string> [-Sum] [-Average] [-Minimum] [-Maximum] [-InputObject <PSObject>] <br>
 -- Get-Content C:\path\to\file.txt | Measure-Object -Line  ---  szövegfájl sorainak megszámolása <br>
 **Get-ChildItem** C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
+
+## Sysinternals
+
+[Letöltés](https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite)
