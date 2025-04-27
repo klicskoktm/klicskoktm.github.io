@@ -117,7 +117,7 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} -MaxEvents 20 | For
 Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4688} -MaxEvents 20 | Format-Table TimeCreated, Message  ---  Új process indítások listázása a Security logból. <br>
 Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Format-Table TimeCreated, Message -AutoSize  --- PowerShell parancsok futtatásának naplózása <br>
 Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName, TaskPath, Actions  --- Scheduled Tasks kilistázása <br>
-Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
 [Összegző powershell script letöltés](./incident_report.ps1) --- a fentebbi dolgokat egyszerre lefuttatja. Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
