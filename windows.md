@@ -1,4 +1,4 @@
-# klicskoktm.github.io
+# Windows admin jegyzet
 
 ## CMD parancsok
 
