@@ -1,5 +1,7 @@
 # Windows admin jegyzet
 
+[To do list](./todo_list.pdf)
+
 ## Egy Windows Server esetén az alábbi nagy területeket kell figyelni:
 
 Terület	Miért fontos? <br>
