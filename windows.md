@@ -2,7 +2,7 @@
 
 [To do list](./to_do_list.pdf)
 
-## Egy Windows Server esetén az alábbi nagy területeket kell figyelni:
+## Egy Windows Server esetén az alábbi területeket kell figyelni:
 
 Terület	Miért fontos? <br>
 Eseménynaplók	- Rendszeresemények, bejelentkezések, hibák <br>
