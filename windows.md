@@ -19,6 +19,16 @@
 	Rendszer tulajdonságai <br>
 	Erőforrás figyelő / Resource monitor - Hálózati kapcsolatkok figyelésére - **resmon** <br>
 	Registry Editor/Beállításszerkesztő - **regedit** <br>
+## Rosszindulatú folyamatok azonosítása
+
+Keressen olyan folyamatokat, amelyek: <br>
+rossz szülői folyamattal indultak (lsass.exe a szülőfolyamat explorer.exe-vel <br>
+rosszul írt vagy furcsán elnevezett folyamatok (pl. lssass.exe, scvhost.exe) <br>
+a vártnál több példány (az smss.exe folyamat 2 példánya fut) <br>
+a futtatható folyamat rossz útvonalról fut (a services.exe a temp mappából fut) <br>
+rossz felhasználói fiók alatt futó folyamatok (az lsass.exe folyamat a felhasználó fiókja alatt fut <br>
+szokatlan indítási idejű folyamatok (pl. az lssass.exe folyamat 5 órával a rendszerindítás után indult el) <br>
+
 
 ## CMD parancsok
 
