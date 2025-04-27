@@ -21,19 +21,19 @@ dir /s - Displays files in the current directory and all subdirectories.<br>
 tree - visually represent the child directories and subdirectories.<br>
 mkdir directory_name - create a directory<br>
 rmdir directory_name - delete a directory<br>
-type - show the contents of the text file on the screen
-more - show long text
-tasklist - list the running processes
-  tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe
-taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567
-net user - list users
-  net user ujfelhasznalo
-  net user ujfelhasznalo jelszo /add
-net localgroup administrators  - list users in admin group
-  net localgroup administrators ujfelhasznalo /add
-net group /domain  - list all group in domain
-  net group "CsoportNeve" /domain  - list group members
-  net group "CsoportNeve" felhasznalonev /add /domain  - add user to group
-  net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group
-  net group "UjCsoport" /add /domain  - new group
-  net group "CsoportNeve" /delete /domain  - delete group
+type - show the contents of the text file on the screen<br>
+more - show long text<br>
+tasklist - list the running processes<br>
+  tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
+taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567<br>
+net user - list users<br>
+  net user ujfelhasznalo<br>
+  net user ujfelhasznalo jelszo /add<br>
+net localgroup administrators  - list users in admin group<br>
+  net localgroup administrators ujfelhasznalo /add<br>
+net group /domain  - list all group in domain<br>
+  net group "CsoportNeve" /domain  - list group members<br>
+  net group "CsoportNeve" felhasznalonev /add /domain  - add user to group<br>
+  net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
+  net group "UjCsoport" /add /domain  - new group<br>
+  net group "CsoportNeve" /delete /domain  - delete group<br>
