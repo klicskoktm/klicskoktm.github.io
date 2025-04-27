@@ -2,14 +2,14 @@
 
 ## Egy Windows Server esetén az alábbi nagy területeket kell figyelni:
 
-Terület	Miért fontos?
-Eseménynaplók	- Rendszeresemények, bejelentkezések, hibák
-Folyamatok és memória	- Futó/indított programok
-Hálózati aktivitás	- Gyanús kapcsolatok, adatkiáramlás
-Fájlrendszer változások	- Új fájlok, módosított binárisok
-Felhasználói fiókok, jogosultságok	- Új admin fiókok, jogosultságemelés
-Állandósítás jelei (persistence)	- Scheduled Task, Registry módosítások
-Malware nyomok	- Ismeretlen binárisok, rejtett folyamatok
+Terület	Miért fontos? <br>
+Eseménynaplók	- Rendszeresemények, bejelentkezések, hibák <br>
+Folyamatok és memória	- Futó/indított programok <br>
+Hálózati aktivitás	- Gyanús kapcsolatok, adatkiáramlás <br>
+Fájlrendszer változások	- Új fájlok, módosított binárisok <br>
+Felhasználói fiókok, jogosultságok	- Új admin fiókok, jogosultságemelés <br>
+Állandósítás jelei (persistence)	- Scheduled Task, Registry módosítások <br>
+Malware nyomok	- Ismeretlen binárisok, rejtett folyamatok <br>
 
 ## Rosszindulatú folyamatok azonosítása
 
