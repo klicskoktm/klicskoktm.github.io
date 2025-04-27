@@ -2,6 +2,7 @@
 
 [To do list](./to_do_list.pdf) <br>
 [DFIR parancsok](./DFIR.pdf) <br>
+[PS Script](./incident_report.ps1) <br>
 
 ## Egy Windows Server esetén az alábbi területeket kell figyelni:
 
@@ -120,7 +121,6 @@ Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName
 Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
 A fentebbi dolgokat egyszerre lefuttatja az alábbi srcipt. <br>
-[PS Script](./incident_report.ps1) <br>
 Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
 cd $env:USERPROFILE\Desktop <br>
