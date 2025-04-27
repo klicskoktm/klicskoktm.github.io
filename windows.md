@@ -2,8 +2,7 @@
 
 ## Parancsok
 
-**msconfig** - System Configuration utility - Rendszerkonfiguráció
-- Tools <br>
+- **msconfig** - System Configuration utility - Rendszerkonfiguráció -- Tools <br>
 	Windows névjegy <br>
 	UAC beállítás <br>
 	Biztonság és karbantartás <br>
