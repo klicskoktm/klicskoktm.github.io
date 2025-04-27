@@ -81,4 +81,4 @@ Command: sigcheck -u -e C:\Windows\System32 <br>
 :hiddenstream → az alternatív adatfolyam neve; 1234 → az adatfolyam mérete bájtban <br>
 Get-Item -Path .\file.txt -stream * <br>
 Get-Content -Path .\file.txt -stream includedfile.txt <br>
-- [TCPView](./tcpview.html) 
+- [TCPView](./tcpview.pdf) 
