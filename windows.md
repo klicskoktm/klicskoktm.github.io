@@ -1,2 +1,6 @@
+# klicskoktm.github.io
 
-Hello
+## CMD parancsok
+
+hostname - computer name
+whoami - name of the logged-in user
