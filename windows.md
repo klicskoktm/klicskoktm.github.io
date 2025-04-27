@@ -78,7 +78,7 @@ szokatlan indítási idejű folyamatok (pl. az lssass.exe folyamat 5 órával a 
 -- Get-FileHash -Algorithm SHA256 FILE<br>
 **Measure-Object** [-Property] <string> [-Sum] [-Average] [-Minimum] [-Maximum] [-InputObject <PSObject>] <br>
 -- Get-Content C:\path\to\file.txt | Measure-Object -Line  ---  szövegfájl sorainak megszámolása <br>
-Get-ChildItem C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
+**Get-ChildItem** C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
 
 ## Sysinternals
 
@@ -92,10 +92,10 @@ Command: sigcheck -u -e C:\Windows\System32 <br>
 Get-Item -Path .\file.txt -stream * <br>
 Get-Content -Path .\file.txt -stream includedfile.txt <br>
 - [TCPView](./tcpview.pdf) <br>
-- Strings .\file.exe | findstr /i zoom*  --- kilistáz minden olvasható karakterláncot (ASCII és opcionálisan Unicode) megkeresi azokat a sorokat, amelyek tartalmazzák a zoom szót, /i → kis- és nagybetű érzéketlen keresés <br>
+- **Strings** .\file.exe | findstr /i zoom*  --- kilistáz minden olvasható karakterláncot (ASCII és opcionálisan Unicode) megkeresi azokat a sorokat, amelyek tartalmazzák a zoom szót, /i → kis- és nagybetű érzéketlen keresés <br>
 findstr /i /c:"zoom meeting"  --- /c:"szöveg"	Pontos szöveg keresése (szóközös keresésnél hasznos) <br>
 strings .\payload.exe | findstr /i "http https ftp" --- Keresni minden gyanús URL-t egy binárisban <br>
 strings .\payload.exe | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" --- Keresni IP-cím mintákat <br>
-- Process Explorer
-- Process Monitor
-- Process Hacker
+- **Process Explorer**
+- **Process Monitor**
+- **Process Hacker**
