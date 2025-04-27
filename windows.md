@@ -81,4 +81,8 @@ Command: sigcheck -u -e C:\Windows\System32 <br>
 :hiddenstream → az alternatív adatfolyam neve; 1234 → az adatfolyam mérete bájtban <br>
 Get-Item -Path .\file.txt -stream * <br>
 Get-Content -Path .\file.txt -stream includedfile.txt <br>
-- [TCPView](./tcpview.pdf) 
+- [TCPView](./tcpview.pdf) <br>
+- Strings .\file.exe | findstr /i zoom*  --- kilistáz minden olvasható karakterláncot (ASCII és opcionálisan Unicode) megkeresi azokat a sorokat, amelyek tartalmazzák a zoom szót, /i → kis- és nagybetű érzéketlen keresés
+findstr /i /c:"zoom meeting"  --- /c:"szöveg"	Pontos szöveg keresése (szóközös keresésnél hasznos)
+strings .\payload.exe | findstr /i "http https ftp" --- Keresni minden gyanús URL-t egy binárisban
+strings .\payload.exe | findstr /r "[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*" --- Keresni IP-cím mintákat
