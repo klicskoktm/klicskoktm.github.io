@@ -1,5 +1,25 @@
 # Windows admin jegyzet
 
+## Parancsok
+
+**msconfig** - System Configuration utility - Rendszerkonfiguráció
+- Tools <br>
+	Windows névjegy <br>
+	UAC beállítás <br>
+	Biztonság és karbantartás <br>
+	Windows hibaelhárítás <br>
+	Számítógép kezelés - Computer management <br>
+	**compmgmt** - Task Scheduler - Event Viewer - Local Users and Groups - **lusrmgr.msc**  <br>
+	Rendszerinformáció - System Information <br>
+	**msinfo32** - Szoftverkörnyezet/Software Envireonment - Környezeti változók/Environment Variables - TEMP <br>
+	Control Panel > System and Security > System > Advanced system settings > Environment Variables  <br>
+	OR Settings > System > About > system info > Advanced system settings > Environment Variables. <br>
+	Eseménynapló <br>
+	Programok telepítése törlése <br>
+	Rendszer tulajdonságai <br>
+	Erőforrás figyelő / Resource monitor - Hálózati kapcsolatkok figyelésére - **resmon** <br>
+	Registry Editor/Beállításszerkesztő - **regedit** <br>
+
 ## CMD parancsok
 
 hostname - computer name<br>
@@ -24,19 +44,28 @@ rmdir directory_name - delete a directory<br>
 type - show the contents of the text file on the screen<br>
 more : show long text<br>
 tasklist - list the running processes<br>
---tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
+-- tasklist /FI "imagename eq sshd.exe"  -  set the filter image name equals sshd.exe<br>
 taskkill /PID target_pid  - kill the process with PID 4567, the command: taskkill /PID 4567<br>
 net user : list users<br>
---net user ujfelhasznalo<br>
---net user ujfelhasznalo jelszo /add<br>
+-- net user ujfelhasznalo<br>
+-- net user ujfelhasznalo jelszo /add<br>
 net localgroup administrators  : list users in admin group<br>
---net localgroup administrators ujfelhasznalo /add<br>
+-- net localgroup administrators ujfelhasznalo /add<br>
 net group /domain  - list all group in domain<br>
---net group "CsoportNeve" /domain  - list group members<br>
---net group "CsoportNeve" felhasznalonev /add /domain  - add user to group<br>
---net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
---net group "UjCsoport" /add /domain  - new group<br>
---net group "CsoportNeve" /delete /domain  - delete group<br>
+-- net group "CsoportNeve" /domain  - list group members<br>
+-- net group "CsoportNeve" felhasznalonev /add /domain  - add user to group<br>
+-- net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
+-- net group "UjCsoport" /add /domain  - new group<br>
+-- net group "CsoportNeve" /delete /domain  - delete group<br>
 dir C:\secret.txt /s /p  : /s recursive search in subfolders, /p pauses after screen is full.<br>
 -- /O : List by files in sorted order. sortorder:  |  N  By name (alphabetic)  | S  By size (smallest first) |  E  By extension (alphabetic)<br>
--- D  By date/time (oldest first) |  G  Group directories first  |  - (minus) Prefix to reverse order
+-- D  By date/time (oldest first) |  G  Group directories first  |  - (minus) Prefix to reverse order<br>
+
+## PowerShell parancsok
+
+Get-FileHash FILE  --- (Linux) $ sha256sum FILE  --- $ md5sum FILE<br>
+-- Get-FileHash -Algorithm MD5 FILE<br>
+-- Get-FileHash -Algorithm SHA256 FILE<br>
+Measure-Object [-Property] <string> [-Sum] [-Average] [-Minimum] [-Maximum] [-InputObject <PSObject>] <br>
+-- Get-Content C:\path\to\file.txt | Measure-Object -Line  ---  szövegfájl sorainak megszámolása <br>
+Get-ChildItem C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
