@@ -120,7 +120,7 @@ Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName
 Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
 A fentebbi dolgokat egyszerre lefuttatja az alábbi srcipt. <br>
-[Powershell script](./incident_report.ps1)
+[Powershell script](./incident_report.ps1) <br>
 Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
 cd $env:USERPROFILE\Desktop <br>
