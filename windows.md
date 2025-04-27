@@ -1,7 +1,7 @@
 # Windows admin jegyzet
 
-[To do list](./to_do_list.pdf)
-[DFIR parancsok](./DFIR.pdf)
+[To do list](./to_do_list.pdf) <br>
+[DFIR parancsok](./DFIR.pdf) <br>
 
 ## Egy Windows Server esetén az alábbi területeket kell figyelni:
 
