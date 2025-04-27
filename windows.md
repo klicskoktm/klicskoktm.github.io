@@ -102,6 +102,25 @@ Az ütemezett feladatok meghatározása <br>
 **Measure-Object** [-Property] <string> [-Sum] [-Average] [-Minimum] [-Maximum] [-InputObject <PSObject>] <br>
 -- Get-Content C:\path\to\file.txt | Measure-Object -Line  ---  szövegfájl sorainak megszámolása <br>
 **Get-ChildItem** C:\path\to\logs\*.log | Measure-Object -Property Length -Sum  --- egy mappában lévő összes .log fájl méretének kiszámolása <br>
+Get-Process | Select-Object Name, Id, Path, StartTime  ---  Összes futó folyamat kilistázása <br>
+Get-WmiObject Win32_Process | Select-Object ProcessId, ParentProcessId, Name, CommandLine  --- Gyanús parent-child folyamat kapcsolatok <br>
+Get-Process | Where-Object { $_.Path -and !(Get-AuthenticodeSignature $_.Path).Status -eq 'Valid' }  --- Olyan futó processzek, amelyek NEM digitálisan aláírtak <br>
+Get-NetTCPConnection | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, OwningProcess  ---  Aktív hálózati kapcsolatok kilistázása <br>
+Get-NetTCPConnection | ForEach-Object {<br>
+    $_ | Add-Member -MemberType NoteProperty -Name "ProcessName" -Value (Get-Process -Id $_.OwningProcess).Name -Force <br>
+    $_<br>
+} | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort, State, ProcessName<br>
+Get-LocalUser | Where-Object { $_.WhenCreated -gt (Get-Date).AddDays(-7) }  ---   helyi felhasználók, akik az elmúlt 7 napban lettek létrehozva <br>
+Get-LocalGroupMember -Group "Administrators" <br>
+Get-ChildItem -Path "C:\Windows\System32" -Recurse | Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-3) }  --- Fájlrendszer gyanús változásai: Új vagy frissített fájlok keresése a rendszerkönyvtárban <br>
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4625} -MaxEvents 20 | Format-Table TimeCreated, Message  ---  Sikertelen login kísérletek → brute-force próbálkozás jele. <br>
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4688} -MaxEvents 20 | Format-Table TimeCreated, Message  ---  Új process indítások listázása a Security logból. <br>
+Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Format-Table TimeCreated, Message -AutoSize  --- PowerShell parancsok futtatásának naplózása <br>
+Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName, TaskPath, Actions  --- Scheduled Tasks kilistázása <br>
+Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
+
+
 
 ## Sysinternals
 
