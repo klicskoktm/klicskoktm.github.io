@@ -37,3 +37,6 @@ net group /domain  - list all group in domain<br>
 --net group "CsoportNeve" felhasznalonev /delete /domain  -delete user from group<br>
 --net group "UjCsoport" /add /domain  - new group<br>
 --net group "CsoportNeve" /delete /domain  - delete group<br>
+dir C:\secret.txt /s /p  : /s recursive search in subfolders, /p pauses after screen is full.<br>
+-- /O : List by files in sorted order. sortorder:  |  N  By name (alphabetic)  | S  By size (smallest first) |  E  By extension (alphabetic)<br>
+-- D  By date/time (oldest first) |  G  Group directories first  |  - (minus) Prefix to reverse order
