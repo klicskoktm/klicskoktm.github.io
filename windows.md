@@ -1,5 +1,34 @@
 # Windows admin jegyzet
 
+## Egy Windows Server esetén az alábbi nagy területeket kell figyelni:
+
+Terület	Miért fontos?
+Eseménynaplók	- Rendszeresemények, bejelentkezések, hibák
+Folyamatok és memória	- Futó/indított programok
+Hálózati aktivitás	- Gyanús kapcsolatok, adatkiáramlás
+Fájlrendszer változások	- Új fájlok, módosított binárisok
+Felhasználói fiókok, jogosultságok	- Új admin fiókok, jogosultságemelés
+Állandósítás jelei (persistence)	- Scheduled Task, Registry módosítások
+Malware nyomok	- Ismeretlen binárisok, rejtett folyamatok
+
+## Rosszindulatú folyamatok azonosítása
+
+Keressen olyan folyamatokat, amelyek: <br>
+Rossz szülői folyamattal indultak (lsass.exe a szülőfolyamat explorer.exe-vel <br>
+Rosszul írt vagy furcsán elnevezett folyamatok (pl. lssass.exe, scvhost.exe) <br>
+A vártnál több példány (az smss.exe folyamat 2 példánya fut) <br>
+A futtatható folyamat rossz útvonalról fut (a services.exe a temp mappából fut) <br>
+Rossz felhasználói fiók alatt futó folyamatok (az lsass.exe folyamat a felhasználó fiókja alatt fut <br>
+Szokatlan indítási idejű folyamatok (pl. az lssass.exe folyamat 5 órával a rendszerindítás után indult el) <br>
+Nyitott kapcsolatok és portok <br>
+Futtatott folyamatok/szolgáltatások/feladatok <br>
+Web browser history, E-mails, Outlook <br>
+A nyitott portok és a kapcsolódó folyamatok és programok korrelációja <br>
+Nyitott fájlok vizsgálata; hozzárendelt meghajtók és megosztások azonosítása <br>
+A parancssori előzmények vizsgálata <br>
+Ellenőrizze a jogosulatlan fiókokat, csoportokat, megosztásokat és egyéb rendszererőforrásokat, és konfigurációkat a "net" parancs használatával <br>
+Az ütemezett feladatok meghatározása <br>
+
 ## Parancsok
 
 **msconfig** - System Configuration utility - Rendszerkonfiguráció <br>
@@ -19,15 +48,6 @@
 	Rendszer tulajdonságai <br>
 	Erőforrás figyelő / Resource monitor - Hálózati kapcsolatkok figyelésére - **resmon** <br>
 	Registry Editor/Beállításszerkesztő - **regedit** <br>
-## Rosszindulatú folyamatok azonosítása
-
-Keressen olyan folyamatokat, amelyek: <br>
-rossz szülői folyamattal indultak (lsass.exe a szülőfolyamat explorer.exe-vel <br>
-rosszul írt vagy furcsán elnevezett folyamatok (pl. lssass.exe, scvhost.exe) <br>
-a vártnál több példány (az smss.exe folyamat 2 példánya fut) <br>
-a futtatható folyamat rossz útvonalról fut (a services.exe a temp mappából fut) <br>
-rossz felhasználói fiók alatt futó folyamatok (az lsass.exe folyamat a felhasználó fiókja alatt fut <br>
-szokatlan indítási idejű folyamatok (pl. az lssass.exe folyamat 5 órával a rendszerindítás után indult el) <br>
 
 
 ## CMD parancsok
