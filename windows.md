@@ -64,6 +64,7 @@ Registry Editor/Beállításszerkesztő - **regedit** <br>
 
 ## Windows Server Parancsok
 
+[GPO import script](./importGPOs.ps1) <br>
 Resultant Set of Policy (RSoP) – **rsop.msc** <br>
 Group Policy Management Console (GPMC) – **gpmc.msc** <br>
  - Group Policy Objects: Itt látod az összes definiált GPO-t.<br>
@@ -85,7 +86,7 @@ Válaszd ki a mentett backup mappát.<br>
 Kövesd a varázslót → Importálás.<br>
 Fontos: a régi GPO-t nem lehet közvetlenül felülírni egy importálással – először vagy törlöd a régit, vagy új üres GPO-ba importálod és újralinkeled az OU-ra, Domain-re stb.<br>
 <br>
-[GPO import script](./importGPOs.ps1)
+
 
 ## CMD parancsok
 
