@@ -66,7 +66,7 @@ Registry Editor/Beállításszerkesztő - **regedit** <br>
 
 ## Windows Server Parancsok
 
-[GPOk letöltése](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+[GPOk letöltése](https://www.microsoft.com/en-us/download/details.aspx?id=55319) <br>
 [GPO import script](./importGPOs.ps1) <br>
 Resultant Set of Policy (RSoP) – **rsop.msc** <br>
 Group Policy Management Console (GPMC) – **gpmc.msc** <br>
