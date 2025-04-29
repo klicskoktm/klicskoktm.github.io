@@ -2,8 +2,9 @@
 
 [To do list](./to_do_list.pdf) <br>
 [DFIR parancsok](./DFIR.pdf) <br>
-[PS Script ellenőrző parancsok incident report](./incident_report.ps1) <br>
 [GPO import script](./importGPOs.ps1) <br>
+[PS Script ellenőrző parancsok incident report](./incident_report.ps1) <br>
+
 Az ellenőrző parancsokat egyszerre lefuttatja a fenti srcipt. <br>
 Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
