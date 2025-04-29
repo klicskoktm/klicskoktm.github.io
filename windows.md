@@ -8,6 +8,7 @@ Használata:<br>
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass <br>
 cd $env:USERPROFILE\Desktop <br>
 .\incident_report.ps1 <br>
+<br>
 
 ## Egy Windows Server esetén az alábbi területeket kell figyelni:
 
@@ -19,6 +20,7 @@ Fájlrendszer változások	- Új fájlok, módosított binárisok <br>
 Felhasználói fiókok, jogosultságok	- Új admin fiókok, jogosultságemelés <br>
 Állandósítás jelei (persistence)	- Scheduled Task, Registry módosítások <br>
 Malware nyomok	- Ismeretlen binárisok, rejtett folyamatok <br>
+<br>
 
 ## Rosszindulatú folyamatok azonosítása
 
@@ -37,27 +39,52 @@ Nyitott fájlok vizsgálata; hozzárendelt meghajtók és megosztások azonosít
 A parancssori előzmények vizsgálata <br>
 Ellenőrizze a jogosulatlan fiókokat, csoportokat, megosztásokat és egyéb rendszererőforrásokat, és konfigurációkat a "net" parancs használatával <br>
 Az ütemezett feladatok meghatározása <br>
+<br>
 
 ## Parancsok
 
-**msconfig** - System Configuration utility - Rendszerkonfiguráció <br>
+**msconfig** : System Configuration utility, Rendszerkonfiguráció <br>
 - Tools <br>
-	Windows névjegy <br>
-	UAC beállítás <br>
-	Biztonság és karbantartás <br>
-	Windows hibaelhárítás <br>
-	Számítógép kezelés - Computer management <br>
-	**compmgmt** - Task Scheduler - Event Viewer - Local Users and Groups - **lusrmgr.msc**  <br>
-	Rendszerinformáció - System Information <br>
-	**msinfo32** - Szoftverkörnyezet/Software Envireonment - Környezeti változók/Environment Variables - TEMP <br>
-	Control Panel > System and Security > System > Advanced system settings > Environment Variables  <br>
-	OR Settings > System > About > system info > Advanced system settings > Environment Variables. <br>
-	Eseménynapló <br>
-	Programok telepítése törlése <br>
-	Rendszer tulajdonságai <br>
-	Erőforrás figyelő / Resource monitor - Hálózati kapcsolatkok figyelésére - **resmon** <br>
-	Registry Editor/Beállításszerkesztő - **regedit** <br>
+Windows névjegy <br>
+UAC beállítás <br>
+Biztonság és karbantartás <br>
+Windows hibaelhárítás <br>
+Számítógép kezelés - Computer management <br>
+**compmgmt** - Task Scheduler - Event Viewer - Local Users and Groups - **lusrmgr.msc**  <br>
+Rendszerinformáció - System Information <br>
+**msinfo32** - Szoftverkörnyezet/Software Envireonment - Környezeti változók/Environment Variables - TEMP <br>
+Control Panel > System and Security > System > Advanced system settings > Environment Variables  <br>
+OR Settings > System > About > system info > Advanced system settings > Environment Variables. <br>
+Eseménynapló <br>
+Programok telepítése törlése <br>
+Rendszer tulajdonságai <br>
+Erőforrás figyelő / Resource monitor - Hálózati kapcsolatkok figyelésére - **resmon** <br>
+Registry Editor/Beállításszerkesztő - **regedit** <br>
+<br>
 
+## Windows Server Parancsok
+
+Resultant Set of Policy (RSoP) – **rsop.msc** <br>
+Group Policy Management Console (GPMC) – **gpmc.msc** <br>
+ - Group Policy Objects: Itt látod az összes definiált GPO-t.<br>
+Jobb klikk egy GPO-ra → Edit → nézd meg a konfigurációkat:<br>
+Computer Configuration → Policies → Windows Settings → Security Settings<br>
+GPO hatásosságának ellenőrzése (melyik GPO aktív egy gépen): **gpresult /H eredmeny.html**<br>
+Automatikus riportkészítés: Ha sok GPO-t akarsz egyszerre kiexportálni: Powershell scriptet használhatsz, pl.:<br>
+
+ - Get-GPO -All | ForEach-Object {<br>
+    (tab)Get-GPOReport -Guid $_.Id -ReportType Html -Path "C:\GPOReports\$($_.DisplayName).html"<br>
+}<br>
+- Összes GPO kiexportálása PowerShell-lel:<br>
+Backup-GPO -All -Path "C:\GPO_Backups"<br>
+- GPO importálása GPMC-ben: <br>
+Kattints Group Policy Objects részre.<br>
+Új GPO-t kell létrehoznod → New (üres GPO).<br>
+Az új GPO-n jobb klikk → Import Settings...<br>
+Válaszd ki a mentett backup mappát.<br>
+Kövesd a varázslót → Importálás.<br>
+Fontos: a régi GPO-t nem lehet közvetlenül felülírni egy importálással – először vagy törlöd a régit, vagy új üres GPO-ba importálod és újralinkeled az OU-ra, Domain-re stb.<br>
+<br>
 
 ## CMD parancsok
 
@@ -99,6 +126,7 @@ Az ütemezett feladatok meghatározása <br>
 **dir** C:\secret.txt /s /p  : /s recursive search in subfolders, /p pauses after screen is full.<br>
 -- /O : List by files in sorted order. sortorder:  |  N  By name (alphabetic)  | S  By size (smallest first) |  E  By extension (alphabetic)<br>
 -- D  By date/time (oldest first) |  G  Group directories first  |  - (minus) Prefix to reverse order<br>
+<br>
 
 ## PowerShell parancsok
 
@@ -125,7 +153,7 @@ Get-WinEvent -LogName "Microsoft-Windows-PowerShell/Operational" | Format-Table 
 Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} | Select-Object TaskName, TaskPath, Actions  --- Scheduled Tasks kilistázása <br>
 Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run" <br>
 Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"  --- Registry "Run" kulcsok vizsgálata, Automatikusan induló programok nyomai. <br>
-
+<br>
 
 ## Sysinternals
 
