@@ -1,7 +1,7 @@
 # Windows admin jegyzet
 
-[To do list](./to_do_list.pdf) <br>
-[DFIR parancsok](./DFIR.pdf) <br>
+[To do list (pdf)](./to_do_list.pdf) <br>
+[DFIR parancsok(pdf)](./DFIR.pdf) <br>
 [GPO import script](./importGPOs.ps1) <br>
 [PS Script ellenőrző parancsok incident report](./incident_report.ps1) <br>
 
