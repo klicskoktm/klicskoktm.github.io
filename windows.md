@@ -68,6 +68,7 @@ Registry Editor/Beállításszerkesztő - **regedit** <br>
 
 [GPOk letöltése: Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319) <br>
 [GPO import script](./importGPOs.ps1) <br>
+[GPO linkelés](./GPO_link.pdf)
 Resultant Set of Policy (RSoP) – **rsop.msc** <br>
 Group Policy Management Console (GPMC) – **gpmc.msc** <br>
  - Group Policy Objects: Itt látod az összes definiált GPO-t.<br>
