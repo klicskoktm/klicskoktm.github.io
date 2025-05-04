@@ -7,7 +7,7 @@
 # Egyéb
 [To do list (pdf)](./to_do_list.pdf) <br>
 [DFIR parancsok(pdf)](./DFIR.pdf) <br>
-[GPO import script](./importGPOs.ps1) <br>
+[GPO import script (régi ps1)](./importGPOs.ps1) <br>
 [PS Script ellenőrző parancsok incident report](./incident_report.ps1) <br>
 
 Az ellenőrző parancsokat egyszerre lefuttatja a fenti srcipt. <br>
