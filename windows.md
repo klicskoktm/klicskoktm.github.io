@@ -1,5 +1,10 @@
 # Windows admin jegyzet
+[GPO csomag importálni (zip)](./GPOs.zip) <br>
+[DC01-importGPOs (ps1)](./dc1-importGPOs.ps1) <br>
 
+
+
+# Egyéb
 [To do list (pdf)](./to_do_list.pdf) <br>
 [DFIR parancsok(pdf)](./DFIR.pdf) <br>
 [GPO import script](./importGPOs.ps1) <br>
