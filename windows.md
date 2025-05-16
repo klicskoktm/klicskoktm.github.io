@@ -1,7 +1,7 @@
 # Windows admin jegyzet
 [GPO csomag importálni (zip)](./GPOs.zip) <br>
 [DC01-importGPOs (ps1)](./dc1-importGPOs.ps1) <br>
-[Sysmon Config file v9.01](./sysmonconfig-v9_01-strict.xml)
+[Sysmon Config file v9.01](./sysmonconfig-v9_01-fixed.xml)
 
 
 # Egyéb
