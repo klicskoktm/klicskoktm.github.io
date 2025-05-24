@@ -21,7 +21,22 @@ ip address 10.1.1.1 255.255.255.252
 no sh
 exit
 ```
-
+## VLAN config
+```
+VLAN klónozás switch-ek között:
+SW-1:
+vtp domain SITE-HQ
+vtp password jelszo
+vtp version 2
+vtp mode server
+show vtp pasword
+SW-2:
+vtp domain SITE-HQ
+vtp password jelszo
+vtp version 2
+vtp mode client
+show vlan
+```
 ## OSPF configuration
 ```
 router ospf 1
