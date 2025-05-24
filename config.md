@@ -55,7 +55,7 @@ int g0/1.10
 encapsulation dot1q 10
 ip address 192.168.10.1 255.255.255.0
 ```
-##Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
+## Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
 ```
 int range f0/1-24
 spanning-tree portfast
@@ -97,7 +97,7 @@ standby 1 ip 192.16.0.254
 standby 1 priority 50
 exit
 ```
-##EtherChannel (PAgP)
+## EtherChannel (PAgP)
 ```
 AKTÍV:
 int range f0/23-24
