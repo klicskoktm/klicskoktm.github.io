@@ -4,7 +4,7 @@
 [Sysmon Config file v9.01](./sysmonv9.xml)
 
 
-# Egyéb
+## Egyéb
 [To do list (pdf)](./to_do_list.pdf) <br>
 [DFIR parancsok(pdf)](./DFIR.pdf) <br>
 [GPO import script (régi ps1)](./importGPOs.ps1) <br>
