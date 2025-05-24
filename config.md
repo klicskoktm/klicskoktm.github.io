@@ -220,6 +220,26 @@ end
 access-list 101 permit tcp any host 172.16.102.102 eq 80
 access-list 101 permit tcp any host 172.16.102.102 eq 443
 access-list 101 deny ip any any
+!
+!Állítson be egy ACL-t a Site HQ forgalomirányítón,
+!mely csakis FTP, HTTP, HTTPS és DNS forgalmat engedélyez
+!a 10-es és 40-es VLAN-okba bejutni!
+!a. ACL javasolt neve: DNS_Web_FTP
+!b. Javasolt interfészek: Gig0/1.10 és Gig0/1.40
+!c. Sikeres konfiguráció után a Development PC 1 – 2 és
+!Management Laptop 1 – 2 eszközök nem képesek például ping-et végezni.
+ip access-list extended DNS_Web_FTP
+permit tcp any any eq www
+permit tcp any any eq 443
+permit tcp any any eq ftp
+permit udp any any eq domain
+deny ip any any
+int g0/1.10
+ip access-group DNS_Web_FTP in
+int g0/1.40
+ip access-group DNS_Web_FTP in
+sh ip access-list
+
 ```
 
 ## Securing config files
@@ -240,14 +260,20 @@ copy running-config startup-config
 ## Site-to-site VPN configuration (1:50:30)
 ```
 ! enabling and configuring isakmp
-conf t
+license boot module c2900 technology-package securityk9
+do copy run start
+reload
+
 crypto isakmp enable
+ip access-list extended IPSec
+permit ip 192.168.10.0 0.0.0.255 172.16.0.0 0.0.0.255
+
 crypto isakmp policy 10
-hash sha
 authentication pre-share
 group 5
-lifetime 3600
+hash sha
 encryption aes 256
+lifetime 3600
 end
 show crypto isakmp policy
 
@@ -255,21 +281,21 @@ show crypto isakmp policy
 
 ! setting up VPN
 conf t
-crypto isakmp key cisco123 address 10.2.2.1
-crypto ipsec transform-set 50 esp-aes 256 esp-sha-hmac
-crypto ipsec security-association lifetime seconds 1800
-access-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255
+crypto isakmp key cisco123 address 10.2.2.1   (túloldali eszköz címe)
+crypto ipsec transform-set TS1 esp-aes esp-sha-hmac
+!!crypto ipsec security-association lifetime seconds 1800
+!!access-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255
 crypto map CMAP 10 ipsec-isakmp
-match address 101
-set peer 10.2.2.1
-set pfs group5
-set transform-set 50
-set security-association lifetime seconds 900
+match address IPSec
+set peer 10.2.2.1   (túloldali eszköz címe)
+!!set pfs group5
+set transform-set TS1
+!!set security-association lifetime seconds 900
 exit
 
 !
 
-! adding to interface
+! adding to interface (public)
 interface S0/0/0
 crypto map CMAP
 end
@@ -277,4 +303,8 @@ end
 show crypto ipsec transform-set
 show crypto ipsec sa
 !
+```
+## ZPF
+```
+2:14:49
 ```
