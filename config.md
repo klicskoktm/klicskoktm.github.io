@@ -37,6 +37,14 @@ vtp version 2
 vtp mode client
 show vlan
 ```
+## Router-on-a-stick
+```
+int g0/1
+no sh
+int g0/1.10
+encapsulation dot1q 10
+ip address 192.168.10.1 255.255.255.0
+```
 ## OSPF configuration
 ```
 router ospf 1
