@@ -5,8 +5,17 @@ ena
 conf t
 hostname R1
 ```
+## IPv6
+```
+ipv6 unicast-routing
+int s0/0/1
+ipv6 add CAFE:0:1:2:3::1/64
+ipv6 add FE80::1 linc-local
+```
 ## Interface configuration
 ```
+default interface gi0/1 (alap konfigra vissza rakja)
+
 interface fastEthernet0/1
 ip address 192.168.1.1 255.255.255.0
 !description Connection to Switch 1, port F0/5
@@ -20,6 +29,7 @@ ip address 10.1.1.1 255.255.255.252
 !description Connection to R2, Serial0/0/0 (DCE)
 no sh
 exit
+sh ip int br
 ```
 ## VLAN config
 ```
@@ -44,6 +54,23 @@ no sh
 int g0/1.10
 encapsulation dot1q 10
 ip address 192.168.10.1 255.255.255.0
+```
+##Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
+```
+int range f0/1-24
+spanning-tree portfast
+spanning-tree bpduguard enable
+```
+## DHCP (routeren)
+```
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp pool Development
+network 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 172.16.0.100
+domain-name example.com (nem kötelező)
+exit
+show ip dhcp binding
 ```
 ## OSPF configuration
 ```
