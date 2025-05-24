@@ -75,23 +75,92 @@ show ip dhcp binding
 ## OSPF configuration
 ```
 router ospf 1
-router-id 192.168.1.5
+router-id 1.1.1.1
 network 192.168.1.0 0.0.0.255 area 0
 network 10.1.1.0 0.0.0.3 area 0
+passive-interface g0/1
+default-information originate (hirdesse az alapértelmezett útvonalat a többi router számára)
 exit
+```
+## HSRP (harmadik-rétegbeli redundancia, virtuális IP ha kiesik egy router)
+```
+AKTÍV ROUTER:
+int g0/1 (alhálózati gépek felé néző interface)
+standby 1 ip 192.16.0.254
+standby 1 priority 150
+standby 1 preempt
+end
+sh standby br
+PASSZÍV ROUTER:
+int g0/1
+standby 1 ip 192.16.0.254
+standby 1 priority 50
+exit
+```
+##EtherChannel (PAgP)
+```
+AKTÍV:
+int range f0/23-24
+channel-group 1 mode desirable
+PASSZÍV:
+int range f0/23-24
+channel-group 1 mode auto
+sh ip int br
 ```
 ## If need default route (on the router)
 ```
-router ospf 101
+router ospf 1
 default-information originate
 exit
 ! you need static route on perimeter router
 ip route 0.0.0.0 0.0.0.0 101.101.101.10
+(IP cím VAGY kimenő interface)
+ip route 0.0.0.0 0.0.0.0 s0/0/1
 ! on the ISP's router you also need static route
 ip route 0.0.0.0 0.0.0.0 101.101.101.9
 exit
+sh ip route
+!IPv6 default route:
+ipv6 route ::/0 s0/1/1
 ```
+## IPv6 SLAAC 
+```
+ipv6 dhcp pool Cafe
+domain-name cafe.com
+dns-server CAFE:0:0:2000::2000
+exit
+int g0/1
+ipv6 nd other-config-flag
+ipv6 dhcp server Cafe
+```
+## NAT-PAT
+```
+ip access-list extended Internal
+deny ip 192.168.10.0 0.0.0.255 172.16.0.0 0.0.0.255
+deny ip 192.168.40.0 0.0.0.255 172.16.0.0 0.0.0.255
+permit ip 192.168.10.0 0.0.0.255 any
+permit ip 192.168.40.0 0.0.0.255 any
+deny ip any any
+exit
+PAT:
+ip nat inside source list Internal interface s0/1/0 overload
 
+show ip access-list
+
+int g0/1.10
+ip nat inside
+int g0/1.40
+ip nat inside
+int s0/1/0
+ip nat outside
+
+PORT FORWARD: HTTP, HTTPS, FTP, DNS(belső aztán külső IP)
+ip nat inside source static tcp 192.168.255.200 80 209.165.100.2 80
+ip nat inside source static tcp 192.168.255.200 443 209.165.100.2 443
+ip nat inside source static tcp 192.168.255.200 20 209.165.100.2 20
+ip nat inside source static tcp 192.168.255.200 21 209.165.100.2 21
+ip nat inside source static udp 192.168.255.100 53 209.165.100.2 53
+```
 ## Security configuration
 ```
 !!! syntax !!!
@@ -168,7 +237,7 @@ show secure bootset
 copy running-config startup-config
 ```
 
-## Site-to-site VPN configuration
+## Site-to-site VPN configuration (1:50:30)
 ```
 ! enabling and configuring isakmp
 conf t
