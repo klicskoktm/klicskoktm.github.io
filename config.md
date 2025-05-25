@@ -47,34 +47,23 @@ no cdp run  -CDP egész eszközön tiltása
 no cdp enable  - CDP interfészen tiltás
 
 mdix auto   - az interfész automatikusan felismeri a szükséges kábelcsatlakozási típust (egyenes vagy keresztkábel)
+```
 
-
-```
-## IPv6
-```
-ipv6 unicast-routing
-int s0/0/1
-ipv6 add CAFE:0:1:2:3::1/64
-ipv6 add FE80::1 link-local
-no sh
-```
 ## Interface configuration
 ```
 default interface gi0/1 (alap konfigra vissza rakja)
 
 interface fastEthernet0/1
-ip address 192.168.1.1 255.255.255.0
-!description Connection to Switch 1, port F0/5
-no sh
-exit
-
-!
+ ip address 192.168.1.1 255.255.255.0
+ description Connection to Switch 1, port F0/5
+ no sh
+ exit
 
 interface Serial0/0/0
-ip address 10.1.1.1 255.255.255.252
-!description Connection to R2, Serial0/0/0 (DCE)
-no sh
-exit
+ ip address 10.1.1.1 255.255.255.252
+ description Connection to R2, Serial0/0/0 (DCE)
+ no sh
+ exit
 sh ip int br
 ```
 ## VLAN config
@@ -158,9 +147,9 @@ service dhcp   - kikapcsolás után újra visszakapcsolás
 
 ROUTER DHCP KLIENSKÉNT:
 interface g0/1
-ip address dhcp
-no sh
-exit
+ ip address dhcp
+ no sh
+ exit
 show ip interface g0/1
 
 DHCP RELAY AGENT:
@@ -187,51 +176,53 @@ exit
 ```
 AKTÍV ROUTER:
 int g0/1 (alhálózati gépek felé néző interface)
-standby 1 ip 192.16.0.254
-standby 1 priority 150
-standby 1 preempt
-end
+ standby 1 ip 192.16.0.254
+ standby 1 priority 150
+ standby 1 preempt
+ end
 sh standby br
+
 PASSZÍV ROUTER:
 int g0/1
-standby 1 ip 192.16.0.254
-standby 1 priority 50
-exit
+ standby 1 ip 192.16.0.254
+ standby 1 priority 50
+ exit
 ```
 ## EtherChannel
 ### PAgP
 ```
 AKTÍV:
 int range f0/23-24
-channel-group 1 mode desirable
+ channel-group 1 mode desirable
+
 PASSZÍV:
 int range f0/23-24
-channel-group 1 mode auto
+ channel-group 1 mode auto
 sh ip int br
 ```
 ### LACP
 ```
 AKTÍV:
 int range f0/23-24
-no sh
-channel-group 1 mode active
-exit
+ no sh
+ channel-group 1 mode active
+ exit
 interface port-channel 1
-no sh
-switchport mode trunk
-switchport trunk allowed vlan 1,2,3
+ no sh
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,3
 
 PASSZÍV:
 int range f0/23-24
-no sh
-channel-group 1 mode passive
-exit
+ no sh
+ channel-group 1 mode passive
+ exit
 interface port-channel 1
-no sh
-switchport mode trunk
-switchport trunk allowed vlan 1,2,3
+ no sh
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,3
 ```
-## If need default route (on the router)
+## Default route (on the router)
 ```
 router ospf 1
 default-information originate
@@ -246,6 +237,14 @@ exit
 sh ip route
 !IPv6 default route:
 ipv6 route ::/0 s0/1/1
+```
+## IPv6
+```
+ipv6 unicast-routing
+int s0/0/1
+ ipv6 add CAFE:0:1:2:3::1/64
+ ipv6 add FE80::1 link-local
+ no sh
 ```
 ## IPv6 SLAAC 
 ```
@@ -284,101 +283,6 @@ ip nat inside source static tcp 192.168.255.200 443 209.165.100.2 443
 ip nat inside source static tcp 192.168.255.200 20 209.165.100.2 20
 ip nat inside source static tcp 192.168.255.200 21 209.165.100.2 21
 ip nat inside source static udp 192.168.255.100 53 209.165.100.2 53
-```
-## Security configuration
-```
-!!! syntax !!!
-
-! enable algorithm-type {md5 | scrypt | sha256} secret [password]
-! username [username] algorithm-type {md5 | scrypt | sha256} secret [password]
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-security passwords min-length 10
-service password-encryption
-line vty 0 4
-exec-timeout 3 30
-line console 0
-exec-timeout 3 30
-transport input ssh
-enable secret cisco12345
-!ios 15.3-tól:
-!enable algorithm-type scrypt secret cisco12345
-username admin01 secret admin01pass
-
-!
-
-line console 0
-login local
-exec-timeout 5 0
-logging synchronous
-exit
-line aux 0
-login local
-exit
-
-
-! ssh config
-
-ip domain-name ccnasecurity.com
-!crypto key generate rsa modulus 1024
-crypto key generate rsa general-keys modulus 1024
-ip ssh version 2
-username Bob algorithm-type scrypt secret cisco12345
-line vty 0 4
-login local
-transport input ssh
-! exec-timeout 5 0
-end
-
-! show ip ssh
-! ip ssh time-out 60
-! ip ssh authentication-retries 2
-! exit
-
-```
-
-## ACL config
-```
-! allow only https and http to a segment (eg. to server)
-! on the router next to server
-access-list 101 permit tcp any host 172.16.102.102 eq 80
-access-list 101 permit tcp any host 172.16.102.102 eq 443
-access-list 101 deny ip any any
-!
-!Állítson be egy ACL-t a Site HQ forgalomirányítón,
-!mely csakis FTP, HTTP, HTTPS és DNS forgalmat engedélyez
-!a 10-es és 40-es VLAN-okba bejutni!
-!a. ACL javasolt neve: DNS_Web_FTP
-!b. Javasolt interfészek: Gig0/1.10 és Gig0/1.40
-!c. Sikeres konfiguráció után a Development PC 1 – 2 és
-!Management Laptop 1 – 2 eszközök nem képesek például ping-et végezni.
-ip access-list extended DNS_Web_FTP
-permit tcp any any eq www
-permit tcp any any eq 443
-permit tcp any any eq ftp
-permit udp any any eq domain
-deny ip any any
-int g0/1.10
-ip access-group DNS_Web_FTP in
-int g0/1.40
-ip access-group DNS_Web_FTP in
-sh ip access-list
-
-```
-
-## Securing config files
-```
-conf t
-secure boot-image
-secure boot-config
-exit
-show secure bootset
-
-```
-
-## Saving configuration
-```
-copy running-config startup-config
 ```
 
 ## Site-to-site VPN configuration (1:50:30)
@@ -503,4 +407,99 @@ interface Gig0/2
 zone-member security INSIDE
 
 show zone-pair security
+```
+## Security configuration
+```
+!!! syntax !!!
+
+! enable algorithm-type {md5 | scrypt | sha256} secret [password]
+! username [username] algorithm-type {md5 | scrypt | sha256} secret [password]
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+security passwords min-length 10
+service password-encryption
+line vty 0 4
+exec-timeout 3 30
+line console 0
+exec-timeout 3 30
+transport input ssh
+enable secret cisco12345
+!ios 15.3-tól:
+!enable algorithm-type scrypt secret cisco12345
+username admin01 secret admin01pass
+
+!
+
+line console 0
+login local
+exec-timeout 5 0
+logging synchronous
+exit
+line aux 0
+login local
+exit
+
+
+! ssh config
+
+ip domain-name ccnasecurity.com
+!crypto key generate rsa modulus 1024
+crypto key generate rsa general-keys modulus 1024
+ip ssh version 2
+username Bob algorithm-type scrypt secret cisco12345
+line vty 0 4
+login local
+transport input ssh
+! exec-timeout 5 0
+end
+
+! show ip ssh
+! ip ssh time-out 60
+! ip ssh authentication-retries 2
+! exit
+
+```
+
+## ACL config
+```
+! allow only https and http to a segment (eg. to server)
+! on the router next to server
+access-list 101 permit tcp any host 172.16.102.102 eq 80
+access-list 101 permit tcp any host 172.16.102.102 eq 443
+access-list 101 deny ip any any
+!
+!Állítson be egy ACL-t a Site HQ forgalomirányítón,
+!mely csakis FTP, HTTP, HTTPS és DNS forgalmat engedélyez
+!a 10-es és 40-es VLAN-okba bejutni!
+!a. ACL javasolt neve: DNS_Web_FTP
+!b. Javasolt interfészek: Gig0/1.10 és Gig0/1.40
+!c. Sikeres konfiguráció után a Development PC 1 – 2 és
+!Management Laptop 1 – 2 eszközök nem képesek például ping-et végezni.
+ip access-list extended DNS_Web_FTP
+permit tcp any any eq www
+permit tcp any any eq 443
+permit tcp any any eq ftp
+permit udp any any eq domain
+deny ip any any
+int g0/1.10
+ip access-group DNS_Web_FTP in
+int g0/1.40
+ip access-group DNS_Web_FTP in
+sh ip access-list
+
+```
+
+## Securing config files
+```
+conf t
+secure boot-image
+secure boot-config
+exit
+show secure bootset
+
+```
+
+## Saving configuration
+```
+copy running-config startup-config
 ```
