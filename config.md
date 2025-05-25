@@ -68,14 +68,16 @@ sh ip int br
 ```
 ## VLAN config
 ```
-Access – Állandó non-trunking módba helyezi az Ethernet portot, és egyezteti a kapcsolat nem trunk kapcsolattá történő átalakítását.
-Az Ethernet port nem trunk porttá válik akkor is, ha a szomszédos port nem ért egyet a változtatással.
+Access – Állandó non-trunking módba helyezi az Ethernet portot, és egyezteti a kapcsolat
+nem trunk kapcsolattá történő átalakítását. Az Ethernet port nem trunk porttá válik akkor is,
+ha a szomszédos port nem ért egyet a változtatással.
 
 Trunk – Az Ethernet-portot állandó trunk üzemmódba állítja, és egyeztet, hogy a kapcsolatot trunk kapcsolattá alakítsa.
 A port akkor is trönk porttá válik, ha a szomszédos port nem ért egyet a változtatással.
 
 Dynamic Auto – Az Ethernet-port készen áll arra, hogy a kapcsolatot trunk kapcsolattá alakítsa.
-A port trunk porttá válik, ha a szomszédos port trunk vagy dinamic desirable módra van állítva. Ez az alapértelmezett mód egyes kapcsolóportokhoz.
+A port trunk porttá válik, ha a szomszédos port trunk vagy dinamic desirable módra van állítva.
+Ez az alapértelmezett mód egyes kapcsolóportokhoz.
 
 Dynamic Desirable – A portot aktívan megkísérli átalakítani trunk kapcsolattá.
 A port trunk porttá válik, ha a szomszédos Ethernet port trunk, dinamic desirable vagy dinamic auto módra van állítva.
