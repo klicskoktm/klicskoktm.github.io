@@ -33,6 +33,12 @@ sh ip int br
 ```
 ## VLAN config
 ```
+TRUNK:
+interface f0/1
+switchport mode trunk
+switchport trunk allowed vlan 1,2,3
+switchport trunk native vlan 99
+
 VLAN klónozás switch-ek között:
 SW-1:
 vtp domain SITE-HQ
@@ -97,7 +103,8 @@ standby 1 ip 192.16.0.254
 standby 1 priority 50
 exit
 ```
-## EtherChannel (PAgP)
+## EtherChannel
+### PAgP
 ```
 AKTÍV:
 int range f0/23-24
@@ -106,6 +113,28 @@ PASSZÍV:
 int range f0/23-24
 channel-group 1 mode auto
 sh ip int br
+```
+### LACP
+```
+AKTÍV:
+int range f0/23-24
+no sh
+channel-group 1 mode active
+exit
+interface port-channel 1
+no sh
+switchport mode trunk
+switchport trunk allowed vlan 1,2,3
+
+PASSZÍV:
+int range f0/23-24
+no sh
+channel-group 1 mode passive
+exit
+interface port-channel 1
+no sh
+switchport mode trunk
+switchport trunk allowed vlan 1,2,3
 ```
 ## If need default route (on the router)
 ```
@@ -304,7 +333,77 @@ show crypto ipsec transform-set
 show crypto ipsec sa
 !
 ```
-## ZPF
+## ZPF zóna-alapú tűzfal 2:14:49
 ```
-2:14:49
+!Hozzon létre három zónát:
+
+zone security INSIDE
+zone security SERVERS
+zone security OUTSIDE
+
+!Class-map-ek (forgalom-osztályok) létrehozása
+!Ezek határozzák meg, milyen protokollokat engedélyezel adott forgalomirányhoz.
+
+class-map type inspect match-any OUTSIDE_TO_SERVERS_PROTOCOLS
+match protocol ftp
+match protocol http
+match protocol https
+match protocol dns
+exit
+class-map type inspect match-any INSIDE_TO_SERVERS_PROTOCOLS
+match protocol ssh
+match protocol dns
+match protocol ftp
+match protocol http
+match protocol https
+match protocol icmp
+exit
+class-map type inspect match-any SERVERS_TO_OUTSIDE_PROTOCOLS
+match protocol http
+match protocol https
+match protocol dns
+exit
+
+!Policy-map-ek (szabályzatok) létrehozása
+!A class-map-ek alapján engedélyezett forgalmakat itt definiálod.
+!a) OUTSIDE → SERVERS
+!b) INSIDE → SERVERS
+!c) SERVERS → OUTSIDE
+
+policy-map type inspect OUTSIDE_TO_SERVERS_POLICY
+class type inspect OUTSIDE_TO SERVERS_PROTOCOLS
+inspect
+exit
+policy-map type inspect INSIDE_SERVERS_POLICY
+class type inspect INSIDE_TO_SERVERS_PROTOCOLS
+inspect
+exit
+policy-map type inspest SERVERS_OUTSIDE_POLICY
+class type inspect SERVERS_TO_OUTSIDE_PROTOCOLS
+inspect
+exit
+
+!Zóna-párok (zóna-párosítások) létrehozása
+!Itt adod meg, melyik forgalmi irányra melyik szabályzat vonatkozik.
+
+zone-pair security OUTSIDE_TO_SERVERS source OUTSIDE destination SERVERS
+ service-policy type inspect OUTSIDE_SERVERS_POLICY
+ exit
+zone-pair security INSIDE_TO_SERVERS source INSIDE destination SERVERS
+ service-policy type inspect INSIDE_SERVERS_POLICY
+ exit
+zone-pair security SERVERS_TO_OUTSIDE source SERVERS destination OUTSIDE
+ service-policy type inspect SERVERS_OUTSIDE_POLICY
+ exit
+
+!Interfészek zónákhoz rendelése
+
+interface Se0/1/0
+zone-member security OUTSIDE
+
+interface Gig0/1
+zone-member security SERVERS
+
+interface Gig0/2
+zone-member security INSIDE
 ```
