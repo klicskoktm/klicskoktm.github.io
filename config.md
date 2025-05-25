@@ -348,62 +348,64 @@ show crypto ipsec sa
 !Hozzon létre három zónát:
 
 zone security INSIDE
-zone security SERVERS
+zone security DMZ
 zone security OUTSIDE
 
 !Class-map-ek (forgalom-osztályok) létrehozása
 !Ezek határozzák meg, milyen protokollokat engedélyezel adott forgalomirányhoz.
 
-class-map type inspect match-any OUTSIDE_TO_SERVERS_PROTOCOLS
-match protocol ftp
-match protocol http
-match protocol https
-match protocol dns
-exit
-class-map type inspect match-any INSIDE_TO_SERVERS_PROTOCOLS
-match protocol ssh
-match protocol dns
-match protocol ftp
-match protocol http
-match protocol https
-match protocol icmp
-exit
-class-map type inspect match-any SERVERS_TO_OUTSIDE_PROTOCOLS
-match protocol http
-match protocol https
-match protocol dns
-exit
+class-map type inspect match-any INSIDE_TO_DMZ_PROTOCOLS
+ match protocol dns
+ match protocol ftp
+ match protocol http
+ match protocol https
+ match protocol icmp
+ match protocol ssh
+ exit
+
+class-map type inspect match-any INSIDE_TO_OUTSIDE_PROTOCOLS
+ match protocol ip
+ exit
+
+class-map type inspect match-any OUTSIDE_TO_DMZ_PROTOCOLS
+ match protocol dns
+ match protocol ftp
+ match protocol http
+ match protocol https
+ exit
 
 !Policy-map-ek (szabályzatok) létrehozása
 !A class-map-ek alapján engedélyezett forgalmakat itt definiálod.
-!a) OUTSIDE → SERVERS
-!b) INSIDE → SERVERS
-!c) SERVERS → OUTSIDE
+!a) INSIDE_TO_DMZ_POLICY
+!b) INSIDE_TO_OUTSIDE_POLICY
+!c) OUTSIDE_TO_DMZ_POLICY
 
-policy-map type inspect OUTSIDE_TO_SERVERS_POLICY
-class type inspect OUTSIDE_TO SERVERS_PROTOCOLS
-inspect
-exit
-policy-map type inspect INSIDE_SERVERS_POLICY
-class type inspect INSIDE_TO_SERVERS_PROTOCOLS
-inspect
-exit
-policy-map type inspest SERVERS_OUTSIDE_POLICY
-class type inspect SERVERS_TO_OUTSIDE_PROTOCOLS
-inspect
-exit
+policy-map type inspect INSIDE_TO_DMZ_POLICY
+ class type inspect INSIDE_TO_DMZ_PROTOCOLS
+ inspect
+ exit
+
+policy-map type inspect INSIDE_TO_OUTSIDE_POLICY
+ class type inspect INSIDE_TO_OUTSIDE_PROTOCOLS
+ inspect
+ exit
+
+policy-map type inspect OUTSIDE_TO_DMZ_POLICY
+ class type inspect OUTSIDE_TO_DMZ_PROTOCOLS
+ inspect
+ exit
 
 !Zóna-párok (zóna-párosítások) létrehozása
 !Itt adod meg, melyik forgalmi irányra melyik szabályzat vonatkozik.
 
-zone-pair security OUTSIDE_TO_SERVERS source OUTSIDE destination SERVERS
- service-policy type inspect OUTSIDE_SERVERS_POLICY
+zone-pair security INSIDE_TO_DMZ source INSIDE destination DMZ
+ service-policy type inspect INSIDE_TO_DMZ_POLICY
  exit
-zone-pair security INSIDE_TO_SERVERS source INSIDE destination SERVERS
- service-policy type inspect INSIDE_SERVERS_POLICY
+zone-pair security INSIDE_TO_OUTSIDE source INSIDE destination OUTSIDE
+ service-policy type inspect INSIDE_TO_OUTSIDE_POLICY
  exit
-zone-pair security SERVERS_TO_OUTSIDE source SERVERS destination OUTSIDE
- service-policy type inspect SERVERS_OUTSIDE_POLICY
+zone-pair security OUTSIDE_TO_DMZ source OUTSIDE destination DMZ
+ service-policy type inspect OUTSIDE_TO_DMZ_POLICY
  exit
 
 !Interfészek zónákhoz rendelése
@@ -412,7 +414,7 @@ interface Se0/1/0
 zone-member security OUTSIDE
 
 interface Gig0/1
-zone-member security SERVERS
+zone-member security DMZ
 
 interface Gig0/2
 zone-member security INSIDE
