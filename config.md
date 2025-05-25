@@ -95,10 +95,10 @@ int f0/2
 
 TRUNK:
 interface f0/1
-switchport mode trunk
-switchport trunk allowed vlan 1,2,3
-switchport trunk native vlan 99
-switchport nonegotiate   - DTP letiltása
+ switchport mode trunk
+ switchport trunk allowed vlan 1,2,3
+ switchport trunk native vlan 99
+ switchport nonegotiate   - DTP letiltása
 
 VLAN klónozás switch-ek között:
 SW-1:
@@ -131,19 +131,19 @@ interface gig0/1.16
 ## Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
 ```
 int range f0/1-24
-spanning-tree portfast
-spanning-tree bpduguard enable
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 ```
 ## DHCP (routeren)
 ```
 ip dhcp excluded-address 192.168.10.1 192.168.10.10
 ip dhcp excluded-address 192.168.10.254
 ip dhcp pool Development
-network 192.168.10.0 255.255.255.0
-default-router 192.168.10.1
-dns-server 172.16.0.100
-domain-name example.com (nem kötelező)
-exit
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 172.16.0.100
+ domain-name example.com (nem kötelező)
+ exit
 show ip dhcp binding
 no service dhcp  - kikapcsolás
 service dhcp   - kikapcsolás után újra visszakapcsolás
@@ -168,12 +168,12 @@ R1 alhálózat felőli intefésze a g0/0
 ## OSPF configuration
 ```
 router ospf 1
-router-id 1.1.1.1
-network 192.168.1.0 0.0.0.255 area 0
-network 10.1.1.0 0.0.0.3 area 0
-passive-interface g0/1
-default-information originate (hirdesse az alapértelmezett útvonalat a többi router számára)
-exit
+ router-id 1.1.1.1
+ network 192.168.1.0 0.0.0.255 area 0
+ network 10.1.1.0 0.0.0.3 area 0
+ passive-interface g0/1
+ default-information originate (hirdesse az alapértelmezett útvonalat a többi router számára)
+ exit
 ```
 ## HSRP (harmadik-rétegbeli redundancia, virtuális IP ha kiesik egy router)
 ```
@@ -252,37 +252,37 @@ int s0/0/1
 ## IPv6 SLAAC 
 ```
 ipv6 dhcp pool Cafe
-domain-name cafe.com
-dns-server CAFE:0:0:2000::2000
-exit
+ domain-name cafe.com
+ dns-server CAFE:0:0:2000::2000
+ exit
 int g0/1
-ipv6 nd other-config-flag
-ipv6 dhcp server Cafe
+ ipv6 nd other-config-flag
+ ipv6 dhcp server Cafe
 ```
 ## NAT-PAT
 ```
 ip access-list extended Internal
-deny ip 192.168.10.0 0.0.0.255 172.31.0.0 0.0.0.255
-deny ip 192.168.40.0 0.0.0.255 172.31.0.0 0.0.0.255
-deny ip 172.16.0.0 0.0.0.255 172.31.0.0 0.0.0.255
-permit ip 192.168.10.0 0.0.0.255 any
-permit ip 192.168.40.0 0.0.0.255 any
-permit ip 172.16.0.0 0.0.0.255 any
-deny ip any any
-exit
+ deny ip 192.168.10.0 0.0.0.255 172.31.0.0 0.0.0.255
+ deny ip 192.168.40.0 0.0.0.255 172.31.0.0 0.0.0.255
+ deny ip 172.16.0.0 0.0.0.255 172.31.0.0 0.0.0.255
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.40.0 0.0.0.255 any
+ permit ip 172.16.0.0 0.0.0.255 any
+ deny ip any any
+ exit
 PAT:
 ip nat inside source list Internal interface s0/1/0 overload
 
 show ip access-list
 
 int g0/1.10
-ip nat inside
+ ip nat inside
 int g0/1.16
-ip nat inside
+ ip nat inside
 int g0/1.40
-ip nat inside
+ ip nat inside
 int s0/1/0
-ip nat outside
+ ip nat outside
 
 PORT FORWARD: HTTP, HTTPS, FTP, DNS(belső aztán külső IP)
 ip nat inside source static tcp 172.17.0.100 80 199.18.200.2 80
@@ -312,12 +312,12 @@ permit ip 172.31.0.0 0.0.0.255 192.168.40.0 0.0.0.255
 permit ip 172.31.0.0 0.0.0.255 172.16.0.0 0.0.0.255
 
 crypto isakmp policy 10
-authentication pre-share
-group 2
-hash sha
-encryption aes 192
-lifetime 43200
-end
+ authentication pre-share
+ group 2
+ hash sha
+ encryption aes 192
+ lifetime 43200
+ end
 show crypto isakmp policy
 
 ! setting up VPN
@@ -411,13 +411,13 @@ zone-pair security OUTSIDE_TO_DMZ source OUTSIDE destination DMZ
 !Interfészek zónákhoz rendelése
 
 interface Se0/1/0
-zone-member security OUTSIDE
+ zone-member security OUTSIDE
 
 interface Gig0/1
-zone-member security DMZ
+ zone-member security DMZ
 
 interface Gig0/2
-zone-member security INSIDE
+ zone-member security INSIDE
 
 show zone-pair security
 ```
