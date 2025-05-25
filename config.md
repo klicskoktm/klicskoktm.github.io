@@ -493,9 +493,9 @@ permit tcp any any eq ftp
 permit udp any any eq domain
 deny ip any any
 int g0/1.10
-ip access-group DNS_Web_FTP in
+ip access-group Csak_FTP_Web_DNS in
 int g0/1.40
-ip access-group DNS_Web_FTP in
+ip access-group Csak_FTP_Web_DNS in
 sh ip access-list
 
 ```
