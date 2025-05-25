@@ -496,11 +496,11 @@ access-list 101 deny ip any any
 !Állítson be egy ACL-t a Site HQ forgalomirányítón,
 !mely csakis FTP, HTTP, HTTPS és DNS forgalmat engedélyez
 !a 10-es és 40-es VLAN-okba bejutni!
-!a. ACL javasolt neve: DNS_Web_FTP
+!a. ACL javasolt neve: Csak_FTP_Web_DNS
 !b. Javasolt interfészek: Gig0/1.10 és Gig0/1.40
 !c. Sikeres konfiguráció után a Development PC 1 – 2 és
 !Management Laptop 1 – 2 eszközök nem képesek például ping-et végezni.
-ip access-list extended DNS_Web_FTP
+ip access-list extended Csak_FTP_Web_DNS
 permit tcp any any eq www
 permit tcp any any eq 443
 permit tcp any any eq ftp
