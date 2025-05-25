@@ -124,6 +124,9 @@ int g0/1.10
  encapsulation dot1q 10
  ip address 192.168.10.1 255.255.255.0
  exit
+interface gig0/1.16
+ encapsulation dot1Q 16 native
+ ip address 192.168.16.1 255.255.255.0
 ```
 ## Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
 ```
