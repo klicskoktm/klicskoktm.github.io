@@ -4,6 +4,39 @@
 ena
 conf t
 hostname R1
+no ip domain-lookup
+banner motd #Banner uzenet#
+service password encryption
+int vlan1
+no sh
+ip address 192.168.255.165 255.255.255.0
+ip default-gateway 192.168.255.1
+enable password jelszo
+username Admin privilige 15 password jelszo
+username User privilige 1 password jelszo
+line con 0
+ password jelszo
+ login local
+ logging synchronous
+ exec-timeout 1
+line vty 0 15
+ password jelszo
+ login local
+ logging synchronous
+ exec-timeout 1
+ transport input ssh
+ip domain-name example.com
+crypto key generate rsa
+ 2024
+ip ssh version 2
+ip ssh timeout 60
+ip ssh authentication-retries 2
+
+sh ip int br
+
+int range fa0/2-24
+sh
+description --NOT_CONNECTED--
 ```
 ## IPv6
 ```
@@ -406,4 +439,6 @@ zone-member security SERVERS
 
 interface Gig0/2
 zone-member security INSIDE
+
+show zone-pair security
 ```
