@@ -8,9 +8,9 @@ no ip domain-lookup
 banner motd #Banner uzenet#
 service password-encryption
 int vlan1
-no sh
-ip address 192.168.255.165 255.255.255.0
-ip default-gateway 192.168.255.1
+ no sh
+ ip address 192.168.255.165 255.255.255.0
+ ip default-gateway 192.168.255.1
 enable password jelszo
 VAGY
 enable secret jelszo
@@ -79,11 +79,37 @@ sh ip int br
 ```
 ## VLAN config
 ```
+Access – Állandó non-trunking módba helyezi az Ethernet portot, és egyezteti a kapcsolat nem trunk kapcsolattá történő átalakítását. Az Ethernet port nem trunk porttá válik akkor is, ha a szomszédos port nem ért egyet a változtatással.
+Trunk – Az Ethernet-portot állandó trunk üzemmódba állítja, és egyeztet, hogy a kapcsolatot trunk kapcsolattá alakítsa. A port akkor is trönk porttá válik, ha a szomszédos port nem ért egyet a változtatással.
+Dynamic Auto – Az Ethernet-port készen áll arra, hogy a kapcsolatot trunk kapcsolattá alakítsa. A port trunk porttá válik, ha a szomszédos port trunk vagy dinamic desirable módra van állítva. Ez az alapértelmezett mód egyes kapcsolóportokhoz.
+Dynamic Desirable – A portot aktívan megkísérli átalakítani trunk kapcsolattá. A port trunk porttá válik, ha a szomszédos Ethernet port trunk, dinamic desirable vagy dinamic auto módra van állítva.
+No-negotiate – Letiltja a DTP-t. A port nem küld DTP-kereteket, és nem befolyásolja a bejövő DTP-keretek. Ha két kapcsoló között szeretne trönköt beállítani, amikor a DTP le van tiltva, manuálisan kell konfigurálnia a trönköt a (switchport mode trunk) paranccsal mindkét oldalon.
+
+vlan 10
+ name Management
+int f0/1
+ switchport mode access
+ switchport access vlan 10
+
+VOICE VLAN:
+vlan 20
+ name student
+ vlan 150
+ name VOICE
+ exit
+int f0/2
+ sw m a
+ sw a vlan 20
+ mls qos trust cos
+ sw voice vlan 150
+ exit
+
 TRUNK:
 interface f0/1
 switchport mode trunk
 switchport trunk allowed vlan 1,2,3
 switchport trunk native vlan 99
+switchport nonegotiate   - DTP letiltása
 
 VLAN klónozás switch-ek között:
 SW-1:
@@ -98,14 +124,17 @@ vtp password jelszo
 vtp version 2
 vtp mode client
 show vlan
+show vlan br
+show int f0/1 switchport
 ```
 ## Router-on-a-stick
 ```
 int g0/1
-no sh
+ no sh
 int g0/1.10
-encapsulation dot1q 10
-ip address 192.168.10.1 255.255.255.0
+ encapsulation dot1q 10
+ ip address 192.168.10.1 255.255.255.0
+ exit
 ```
 ## Portfast(L2 hurkok megszüntetése), BPDU guard (access interfacen BPDU csomagok szűrése)
 ```
