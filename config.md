@@ -287,7 +287,7 @@ ip nat outside
 PORT FORWARD: HTTP, HTTPS, FTP, DNS(belső aztán külső IP)
 ip nat inside source static tcp 172.17.0.100 80 199.18.200.2 80
 ip nat inside source static tcp 172.17.0.100 443 199.18.200.2 443
-ip nat inside source static tcp172.17.0.100 20 199.18.200.2 20
+ip nat inside source static tcp 172.17.0.100 20 199.18.200.2 20
 ip nat inside source static tcp 172.17.0.100 21 199.18.200.2 21
 ip nat inside source static udp 172.17.0.100 53 199.18.200.2 53
 ```
