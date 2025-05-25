@@ -6,24 +6,26 @@ conf t
 hostname R1
 no ip domain-lookup
 banner motd #Banner uzenet#
-service password encryption
+service password-encryption
 int vlan1
 no sh
 ip address 192.168.255.165 255.255.255.0
 ip default-gateway 192.168.255.1
 enable password jelszo
+VAGY
+enable secret jelszo
 username Admin privilige 15 password jelszo
-username User privilige 1 password jelszo
+username User privilige 1 secret jelszo
 line con 0
  password jelszo
  login local
  logging synchronous
- exec-timeout 1
+ exec-timeout 5
 line vty 0 15
  password jelszo
  login local
  logging synchronous
- exec-timeout 1
+ exec-timeout 5
  transport input ssh
 ip domain-name example.com
 crypto key generate rsa
@@ -37,13 +39,24 @@ sh ip int br
 int range fa0/2-24
 sh
 description --NOT_CONNECTED--
+
+security passwords min-length 8
+login block-for 120 attempts 3 within 60
+
+no cdp run  -CDP egész eszközön tiltása
+no cdp enable  - CDP interfészen tiltás
+
+mdix auto   - az interfész automatikusan felismeri a szükséges kábelcsatlakozási típust (egyenes vagy keresztkábel)
+
+
 ```
 ## IPv6
 ```
 ipv6 unicast-routing
 int s0/0/1
 ipv6 add CAFE:0:1:2:3::1/64
-ipv6 add FE80::1 linc-local
+ipv6 add FE80::1 link-local
+no sh
 ```
 ## Interface configuration
 ```
