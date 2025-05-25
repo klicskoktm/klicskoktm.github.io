@@ -7,36 +7,36 @@ hostname R1
 no ip domain-lookup
 banner motd #Banner uzenet#
 service password-encryption
-int vlan1
+int vlan 1
  no sh
- ip address 192.168.255.165 255.255.255.0
- ip default-gateway 192.168.255.1
+ ip address 172.17.0.195 255.255.255.0
+ip default-gateway 172.17.0.1
 enable password jelszo
 VAGY
-enable secret jelszo
-username Admin privilige 15 password jelszo
-username User privilige 1 secret jelszo
+enable secret StrongPW
+username Admin privilege 15 secret Admin
+username User01 privilege 1 secret User01
 line con 0
- password jelszo
+ password StrongPW
  login local
  logging synchronous
- exec-timeout 5
+ exec-timeout 1
 line vty 0 15
- password jelszo
+ password StrongPW
  login local
  logging synchronous
- exec-timeout 5
+ exec-timeout 1
  transport input ssh
 ip domain-name example.com
 crypto key generate rsa
- 2024
+ 2048
 ip ssh version 2
-ip ssh timeout 60
+ip ssh time-out 60
 ip ssh authentication-retries 2
 
 sh ip int br
 
-int range fa0/2-24
+int range fa0/1-24
 sh
 description --NOT_CONNECTED--
 
