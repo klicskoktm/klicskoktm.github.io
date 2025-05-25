@@ -145,6 +145,7 @@ spanning-tree bpduguard enable
 ## DHCP (routeren)
 ```
 ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp excluded-address 192.168.10.254
 ip dhcp pool Development
 network 192.168.10.0 255.255.255.0
 default-router 192.168.10.1
@@ -152,6 +153,25 @@ dns-server 172.16.0.100
 domain-name example.com (nem kötelező)
 exit
 show ip dhcp binding
+no service dhcp  - kikapcsolás
+service dhcp   - kikapcsolás után újra visszakapcsolás
+
+ROUTER DHCP KLIENSKÉNT:
+interface g0/1
+ip address dhcp
+no sh
+exit
+show ip interface g0/1
+
+DHCP RELAY AGENT:
+A DHCP relay agent olyan TCP/IP állomás, amely a DHCP-szerver és a kliens közötti kérések és válaszok továbbítására szolgál, ha a kiszolgáló egy másik hálózaton van jelen.
+A relay-agent fogadja a DHCP-üzeneteket, majd új DHCP-üzenetet generálnak, amelyet egy másik interfészen továbbítanak.
+
+R1(config)# interface g0/0
+R1(config-if)# ip helper-address 10.1.1.2
+
+R1 alhálózat felőli intefésze a g0/0
+10.1.1.2 pedig a DHCP router interfésze az előző routertől
 ```
 ## OSPF configuration
 ```
