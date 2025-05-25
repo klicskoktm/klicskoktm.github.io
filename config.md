@@ -262,10 +262,12 @@ ipv6 dhcp server Cafe
 ## NAT-PAT
 ```
 ip access-list extended Internal
-deny ip 192.168.10.0 0.0.0.255 172.16.0.0 0.0.0.255
-deny ip 192.168.40.0 0.0.0.255 172.16.0.0 0.0.0.255
+deny ip 192.168.10.0 0.0.0.255 172.31.0.0 0.0.0.255
+deny ip 192.168.40.0 0.0.0.255 172.31.0.0 0.0.0.255
+deny ip 172.16.0.0 0.0.0.255 172.31.0.0 0.0.0.255
 permit ip 192.168.10.0 0.0.0.255 any
 permit ip 192.168.40.0 0.0.0.255 any
+permit ip 172.16.0.0 0.0.0.255 any
 deny ip any any
 exit
 PAT:
@@ -275,17 +277,19 @@ show ip access-list
 
 int g0/1.10
 ip nat inside
+int g0/1.16
+ip nat inside
 int g0/1.40
 ip nat inside
 int s0/1/0
 ip nat outside
 
 PORT FORWARD: HTTP, HTTPS, FTP, DNS(belső aztán külső IP)
-ip nat inside source static tcp 192.168.255.200 80 209.165.100.2 80
-ip nat inside source static tcp 192.168.255.200 443 209.165.100.2 443
-ip nat inside source static tcp 192.168.255.200 20 209.165.100.2 20
-ip nat inside source static tcp 192.168.255.200 21 209.165.100.2 21
-ip nat inside source static udp 192.168.255.100 53 209.165.100.2 53
+ip nat inside source static tcp 172.17.0.100 80 199.18.200.2 80
+ip nat inside source static tcp 172.17.0.100 443 199.18.200.2 443
+ip nat inside source static tcp172.17.0.100 20 199.18.200.2 20
+ip nat inside source static tcp 172.17.0.100 21 199.18.200.2 21
+ip nat inside source static udp 172.17.0.100 53 199.18.200.2 53
 ```
 
 ## Site-to-site VPN configuration (1:50:30)
@@ -297,39 +301,43 @@ reload
 
 crypto isakmp enable
 ip access-list extended IPSec
-permit ip 192.168.10.0 0.0.0.255 172.16.0.0 0.0.0.255
+
+HQ:
+permit ip 192.168.10.0 0.0.0.255 172.31.0.0 0.0.0.255
+permit ip 192.168.40.0 0.0.0.255 172.31.0.0 0.0.0.255
+permit ip 172.16.0.0 0.0.0.255 172.31.0.0 0.0.0.255
+R2:
+permit ip 172.31.0.0 0.0.0.255 192.168.10.0 0.0.0.255
+permit ip 172.31.0.0 0.0.0.255 192.168.40.0 0.0.0.255
+permit ip 172.31.0.0 0.0.0.255 172.16.0.0 0.0.0.255
 
 crypto isakmp policy 10
 authentication pre-share
-group 5
+group 2
 hash sha
-encryption aes 256
-lifetime 3600
+encryption aes 192
+lifetime 43200
 end
 show crypto isakmp policy
 
-!
-
 ! setting up VPN
 conf t
-crypto isakmp key cisco123 address 10.2.2.1   (túloldali eszköz címe)
+crypto isakmp key StrongPW address 10.2.2.1   (túloldali eszköz címe)
 crypto ipsec transform-set TS1 esp-aes esp-sha-hmac
 !!crypto ipsec security-association lifetime seconds 1800
 !!access-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.3.0 0.0.0.255
-crypto map CMAP 10 ipsec-isakmp
+crypto map CMAP1 10 ipsec-isakmp
 match address IPSec
-set peer 10.2.2.1   (túloldali eszköz címe)
+set peer 10.2.2.1   (túloldali router címe)
 !!set pfs group5
 set transform-set TS1
 !!set security-association lifetime seconds 900
 exit
 
-!
-
 ! adding to interface (public)
-interface S0/0/0
-crypto map CMAP
-end
+interface S0/1/0
+ crypto map CMAP1
+ end
 !
 show crypto ipsec transform-set
 show crypto ipsec sa
